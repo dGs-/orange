@@ -7,7 +7,7 @@
 
 include $(TOPDIR)/rules.mk
 
-PKG_NAME:=odhcp6c-orange
+PKG_NAME:=odhcp6co
 PKG_VERSION:=2017-01-30
 PKG_RELEASE=$(PKG_SOURCE_VERSION)
 
@@ -33,7 +33,7 @@ define Package/odhcp6c-orange
   DEPENDS:=@IPV6
 endef
 
-define Package/odhcp6c-orange/postinst
+define Package/odhcp6co/postinst
 #!/bin/sh
 set -ex
 [ -n "$$IPKG_INSTROOT" ] || {
@@ -41,14 +41,14 @@ killall -9 odhcp6c || true
 }
 endef
 
-define Package/odhcp6c-orange/config
+define Package/odhcp6co/config
   config PACKAGE_odhcp6c_ext_cer_id
     int "CER-ID Extension ID (0 = disabled)"
     depends on PACKAGE_odhcp6c
     default 0
 endef
 
-define Package/odhcp6c-orange/install
+define Package/odhcp6co/install
 	$(INSTALL_DIR) $(1)/usr/sbin/
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/odhcp6c $(1)/usr/sbin/
 	$(INSTALL_DIR) $(1)/lib/netifd/proto
@@ -56,4 +56,4 @@ define Package/odhcp6c-orange/install
 	$(INSTALL_BIN) ./files/dhcpv6.script $(1)/lib/netifd/
 endef
 
-$(eval $(call BuildPackage,odhcp6c))
+$(eval $(call BuildPackage,odhcp6co))
