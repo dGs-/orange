@@ -26,14 +26,14 @@ ifneq ($(CONFIG_PACKAGE_odhcp6c_ext_cer_id),0)
   CMAKE_OPTIONS += -DEXT_CER_ID=$(CONFIG_PACKAGE_odhcp6c_ext_cer_id)
 endif
 
-define Package/odhcp6c
+define Package/odhcp6c-orange
   SECTION:=net
   CATEGORY:=Network
   TITLE:=Embedded DHCPv6-client for OpenWrt for Orange France
   DEPENDS:=@IPV6
 endef
 
-define Package/odhcp6c/postinst
+define Package/odhcp6c-orange/postinst
 #!/bin/sh
 set -ex
 [ -n "$$IPKG_INSTROOT" ] || {
@@ -41,14 +41,14 @@ killall -9 odhcp6c || true
 }
 endef
 
-define Package/odhcp6c/config
+define Package/odhcp6c-orange/config
   config PACKAGE_odhcp6c_ext_cer_id
     int "CER-ID Extension ID (0 = disabled)"
     depends on PACKAGE_odhcp6c
     default 0
 endef
 
-define Package/odhcp6c/install
+define Package/odhcp6c-orange/install
 	$(INSTALL_DIR) $(1)/usr/sbin/
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/odhcp6c $(1)/usr/sbin/
 	$(INSTALL_DIR) $(1)/lib/netifd/proto
